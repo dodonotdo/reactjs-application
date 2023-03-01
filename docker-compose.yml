@@ -1,0 +1,17 @@
+# DOCKER COMPOSE WITH VOLUMES
+version: "3"
+services: 
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+
+
+
+# docker run -d -p 3000:3000 -v /app/node_modules -v $(pwd):/app (con_id)
+
