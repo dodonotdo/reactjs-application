@@ -6,4 +6,4 @@ before_install:
   - docker build -t dodonotdo/reactjs-application  -f Dockerfile.dev .
 
 scripts:
-  - docker run dodonotdo/reactjs-application npm run test -- --coverage
+  - docker run dodonotdo/reactjs-application npm test -- --coverage
