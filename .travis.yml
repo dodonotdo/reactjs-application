@@ -1,0 +1,9 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t dodonotdo/reactjs-application  -f Dockerfile.dev .
+
+scripts:
+  - docker run dodonotdo/reactjs-application npm run test -- --coverage
