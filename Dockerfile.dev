@@ -1,14 +1,11 @@
-FROM node:alpine
-WORKDIR /app
+FROM node:16-alpine
+WORKDIR '/app'
 COPY package.json .
 RUN npm install
 COPY . .
 CMD ["npm", "run", "start"]
 
-# docker build -t react-img -f Dockerfile.dev .
 
-# container with docker volumes,using the below command:
-# docker run -d -p 3000:3000 -v /app/node_modules -v $(pwd):/app (con_id)
+# docker build -t (imageName) -f Dockerfile.dev .
 
-# After running above command, use below url from browser
-# localhost:3000
+# docker run -d -p 4000:3000 --name (containerName) (imageName)

@@ -1,8 +1,8 @@
-# DOCKER COMPOSE WITH VOLUMES
+# docker with volumes concept
 version: "3"
-services: 
+services:
   web:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile.dev
     ports:
@@ -10,8 +10,12 @@ services:
     volumes:
       - /app/node_modules
       - .:/app
-
-
-
-# docker run -d -p 3000:3000 -v /app/node_modules -v $(pwd):/app (con_id)
-
+  tests:
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
