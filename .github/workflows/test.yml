@@ -10,4 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build --tag my-image-name:$(date +%d)  -f Dockerfile.dev .
+      run: docker build -t react-img-build:$(date +%d-%m-%y)  -f Dockerfile.dev .  
+    - uses: actions/checkout@v2
+    - name: test the Docker image
+      run: docker run -e CI=true -t react-img-test:$(date +%d-%m-%y) npm run test -- --coverage 
