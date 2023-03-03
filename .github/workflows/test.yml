@@ -6,6 +6,8 @@ on:
       - 'main'
 jobs:
   docker:
-    runs-on: node:16-alpine
+    runs-on: ubuntu-latest
     steps:
-      - docker build -t dodonotdo/reactjs-application  -f Dockerfile.dev .
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build --tag my-image-name:$(date +%d)  -f Dockerfile.dev .
