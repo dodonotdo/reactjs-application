@@ -1,17 +1,15 @@
-name: dockerImage
+name: Deploy React to AWS
 on:
   push:
     branches:
       - "main"
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
-
-      - name: Build the Docker image
-        run: docker build -t demo .
 
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
