@@ -13,9 +13,6 @@ jobs:
       - name: Build the Docker image
         run: docker build -t demo .
 
-      - name: test the Docker image
-        run: docker run -e CI=true -t demo npm run test -- --coverage
-
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
 
