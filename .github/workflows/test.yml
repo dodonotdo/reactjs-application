@@ -19,8 +19,9 @@ jobs:
       with:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: reactjs-application
-        environment_name: Reactjsapplication-env
-        version_label: "docker-app-${{ steps.format-time.outputs.replaced }}"
+        application_name: reactjs
+        environment_name: Reactjs-env
         region: ap-southeast-1
-        # deployment_package: deploy.zip
+        version_label: ${{github.run_id}}
+        version_description: none
+        deployment_package: deploy.zip
