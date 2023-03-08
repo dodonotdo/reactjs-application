@@ -1,4 +1,4 @@
-name: Deploy React to AWS
+name: Deploy Application to AWS
 on:
   push:
     branches:
@@ -11,6 +11,9 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v2
 
+      - name: docker login
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
       - name: build the docker image
         run: docker build -t dodonotdo/reactjs-application -f Dockerfile.dev .
 
@@ -21,13 +24,13 @@ jobs:
         run: zip -r deploy.zip . -x '*.git*'
 
       - name: Deploy to EB
-        uses: einaregilsson/beanstalk-deploy@v21
+        uses: einaregilsson/beanstalk-deploy@v18
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: docker-react
           environment_name: Dockerreact-env 
-          existing_bucket_name: elasticbeanstalk-ap-southeast-1-972549640330
-          region: ap-southeast-1
+          existing_bucket_name: elasticbeanstalk-us-east-1-972549640330
+          region: us-east-1
           version_label: ${{ github.sha }}
           deployment_package: deploy.zip
