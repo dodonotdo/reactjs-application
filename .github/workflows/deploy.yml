@@ -5,11 +5,17 @@ on:
       - "main"
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
+
+      - name: build the docker image
+        run: docker build -t dodonotdo/reactjs-application -f Dockerfile.dev .
+
+      - name: test the docker image
+        run: docker run -e CI=true dodonotdo/reactjs-application npm test
 
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
@@ -20,8 +26,8 @@ jobs:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: docker-react
-          environment_name: Dockerreact-env
+          environment_name: Dockerreact-env 
+          existing_bucket_name: elasticbeanstalk-ap-southeast-1-972549640330
           region: ap-southeast-1
           version_label: ${{ github.sha }}
-          existing_bucket_name: elasticbeanstalk-ap-southeast-1-972549640330
           deployment_package: deploy.zip
