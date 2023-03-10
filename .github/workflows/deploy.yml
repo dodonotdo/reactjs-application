@@ -15,7 +15,7 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: build the docker image
-        run: docker build -t dodonotdo/reactjs-application -f Dockerfile.dev .
+        run: docker build -t dodonotdo/reactjs-application .
 
       - name: test the docker image
         run: docker run -e CI=true dodonotdo/reactjs-application npm test
